@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 latest_message = {}
 latest_message_timestamp = datetime.utcnow()
 
-with open("secrets.env", 'r') as secret_file:
+with open("secrets.txt", 'r') as secret_file:
     secrets = json.loads(secret_file.read())
 
 
@@ -32,6 +32,10 @@ async def lora_brew(senml_records: List[Dict]):
 
     if payload is None:
         return "No valid payload"
+
+    if payload == bytes([0x13, 0x37]):
+        print("LoRa device joined")
+        return "Welcome"
 
     global latest_message
     received_msg = unmarshal_payload(payload)

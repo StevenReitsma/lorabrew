@@ -9,7 +9,7 @@ from webserver import WebServer
 
 
 # Read keys from secret file
-with open("secrets.env", "r") as secret_file:
+with open("secrets.txt", "r") as secret_file:
     secrets = json.loads(secret_file.read())
 
 dev_eui = binascii.unhexlify(secrets["dev_eui"])
