@@ -1,0 +1,4 @@
+*/secrets.env
+*/__pycache__
+.vscode/
+client/info.txt
