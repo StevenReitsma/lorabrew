@@ -68,7 +68,6 @@ def get_payload_bytes(records: List[Dict]) -> bytes:
 
 
 def unmarshal_payload(buf: bytes) -> Dict:
-    # First we decode all signed shorts back to floats
     factor_dict = [
         ("b", 300.0),
         ("B", 300.0),
@@ -83,6 +82,7 @@ def unmarshal_payload(buf: bytes) -> Dict:
 
     message = {}
 
+    # First we decode all signed shorts back to floats
     for key, factor in factor_dict:
         byte = buf[0:2]
         decoded = struct.unpack("<h", byte)[0] / factor
@@ -90,7 +90,8 @@ def unmarshal_payload(buf: bytes) -> Dict:
 
         buf = buf[2:]
 
-    # Now we construct a single byte from the three remaining enums
+    # Now we deconstruct the single byte into three separate values
+    # This is just an inverse of the bitshift magic in the client code
     enum = struct.unpack("<B", buf)[0]
     message["U"] = "C" if enum & 64 == 64 else "F"
     message["m"] = (enum & 0x30) >> 4

@@ -50,6 +50,7 @@ class LoraSender:
         self.socket.send(send_bytes)
         self.socket.setblocking(False)
 
+        # Save message counter
         self.lora.nvram_save()
 
     def set_metrics(self, metrics):
@@ -70,7 +71,6 @@ class LoraSender:
         self.latest_metrics = {}
 
     def _marshal_latest_metrics(self):
-        # First encode all floats into 2-bit signed shorts
         factor_dict = [
             ("b", 300.0),
             ("B", 300.0),
@@ -84,6 +84,7 @@ class LoraSender:
         ]
         msg = b""
 
+        # First encode all floats into 2-bit signed shorts
         for key, factor in factor_dict:
             if self.latest_metrics[key] is None:
                 self.latest_metrics[key] = 0
