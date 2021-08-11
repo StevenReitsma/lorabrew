@@ -13,5 +13,5 @@ In the `server` directory is a small FastAPI application that receives requests 
 1. Upload the `client` code to your LoPy4 device using your tool of choice. I used the Pymakr VSCode plugin.
 1. Run the `server` code on a publicly accessible network. A `Dockerfile` is included.
 
-You will have to connect the client and server yourself by configuring [KPN Things](https://docs.kpnthings.com/dm/connectivity/lora).
+You will have to connect the client and server yourself by configuring [KPN Things](https://docs.kpnthings.com/portal/concepts/devices/lora).
 If you want to use [TTN](https://www.thethingsnetwork.org/) you might need to modify the payload parsing on the server side but the client code should be exactly the same.
